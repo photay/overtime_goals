@@ -5,22 +5,35 @@
   <script type="text/javascript" src="https://d3js.org/d3.v5.js" ></script>
 </head>
 <body>
-  <!-- <script type="text/javascript" src="main.js"></script> -->
-  <p> "Webpage is here!"</p>
   <script>
-
-    var file = "World_Cup_Stats_2018.csv";
-    // var myVar = function(file) {
-        d3.csv("simple.csv", function(d) {
-        return {
-          year: new Date(+d.Year, 0, 1),
-          make: d.Make,
-          model: d.Model,
-          length: +d.Length
-        };
+  var dataset = [1, 2, 3, 4, 5];
+    d3.select("body")
+      .selectAll("p")
+      .data(dataset)
+      .enter()
+      .append("p")
+      .text(function(d){
+        return d;
       });
-    // };
-    // console.log(myVar);
+    var file = "World_Cup_Stats_2018.csv";
+    d3.csv("simple.csv", function(data) {
+      // return {
+      //   year: new Date(+d.Year, 0, 1),
+      //   make: d.Make,
+      //   model: d.Model,
+      //   length: +d.Length
+      // };
+      d3.select("body")
+        .selectAll("p")
+        .data(data)
+        .enter()
+        .append("p")
+        .text("New Paragraph!");
+        // .text(function(d) {
+        //     return d.Make;
+        // });
+      console.log(data.Make);
+    });
   </script>
 </body>
 </html>
