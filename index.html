@@ -22,51 +22,51 @@
     var sim_file = "data/simple.csv";
 
     var loaded_data = [];
-    d3.csv(sim_file, function(csv) {
+    d3.csv(sim_file, function(data) {
       csv.map(function(d){
         loaded_data.push(d.Year);
       })
+      return loaded_data;
       // data.forEach(function(d){
       //   d.year = new Date(+d.Year, 0, 1);
       //   d.make = d.Make;
       //   d.model = d.Model;
       //   d.length = +d.Length;
       // });
-      printData(loaded_data);
+
       // return {
       //   year: new Date(+d.Year, 0, 1),
       //   make: d.Make,
       //   model: d.Model,
       //   length: +d.Length
       // };
-    // }, function (data) {
-    //   // d3.select("div")
-    //   //   .html("<p>"+data.Make+"</p>")
-    //
-    //   d3.select("div")
-    //     .selectAll("p")
-    //     .data([1,0])
-    //     .enter()
-    //     .append("p")
-    //     .text("New Paragraph!");
-    //     // .text(function(d) {
-    //     //     return d.Make;
-    //     // });
-    //   console.log(data);
-    //   console.log(1);
-    });
+    }, function (dataset) {
+      // d3.select("div")
+      //   .html("<p>"+data.Make+"</p>")
 
-    function printData(data){
       d3.select("div")
         .selectAll("p")
-        .data(data)
+        .data(dataset)
         .enter()
         .append("p")
         .text("New Paragraph!");
         // .text(function(d) {
         //     return d.Make;
         // });
-    };
+      console.log(dataset);
+      console.log(1);
+    });
+
+    // function printData(data){
+    //   d3.select("div")
+    //     .selectAll("p")
+    //     .data(data)
+    //     .enter()
+    //     .append("p")
+    //     .text("New Paragraph!");
+    //     // .text(function(d) {
+    //     //     return d.Make;
+    //     // });
   </script>
 </body>
 </html>
