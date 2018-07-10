@@ -2,28 +2,19 @@
 <html>
 <head>
   <link rel="stylesheet" href="styles.css">
-  <script type="text/javascript" src="https://d3js.org/d3.v5.js" ></script>
+  <script type="text/javascript" src="https://d3js.org/d3.v3.js" ></script>
 </head>
 <body>
   <div class="transbox">
   </div>
   <script>
 
-  // var dataset = [1, 2, 3, 4, 5];
-  //   d3.select("div")
-  //     .selectAll("p")
-  //     .data(dataset)
-  //     .enter()
-  //     .append("p")
-  //     .text(function(d){
-  //       return d;
-  //     });
     var wc_file = "data/World_Cup_Stats_2018.csv";
     var sim_file = "data/simple.csv";
 
     d3.csv(sim_file, function(d) {
       return {
-        year: new Date(+d.Year, 0, 1), // convert "Year" column to Date
+        year: d.Year,
         make: d.Make,
         model: d.Model,
         length: +d.Length // convert "Length" column to number
@@ -35,10 +26,9 @@
         .data(data)
         .enter()
         .append("p")
-        .text("New Paragraph!");
-        // .text(function(d) {
-        //     return d.Make;
-        // });
+        .text(function(d) {
+            return d.make;
+        });
     });
   </script>
 </body>
