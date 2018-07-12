@@ -12,14 +12,15 @@
     var wc_file = "data/World_Cup_Stats_2018.csv";
 
     d3.csv(wc_file, function(d) {
+
       //Get all the goal times
       var goalTimes = [];
       for(item in d){
-        if(item.startsWith("Goal")){
-          // console.log(d[item]);
-          goalTimes.append(d[item]);
-        }
+        if(item.startsWith("Goal") && d[item] != "" ){
+           goalTimes.push(d[item]);
+         }
       }
+
       //Return all the variables
       return {
         round: d.Round,
@@ -36,8 +37,18 @@
         .enter()
         .append("p")
         .text(function(d) {
-            return d.round;
-        });
+            return d.game;
+        })
+        .append("p")
+        .text(function(d){
+          return d.score;
+        })
+        .append("p")
+        .text(function(d){
+          return d.goal_times;
+        })
+        .append("p")
+        .text("\n");
     });
   </script>
 </body>
