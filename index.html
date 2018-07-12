@@ -13,9 +13,10 @@
 
     d3.csv(wc_file, function(d) {
       //Get all the goal times
-      goalTimes = []
+      var goalTimes = [];
       for(item in d){
         if(item.startsWith("Goal")){
+          // console.log(d[item]);
           goalTimes.append(d[item]);
         }
       }
@@ -24,8 +25,8 @@
         round: d.Round,
         game: d.Game,
         score: d.Score,
-        winner: d.Winner
-        // goal_times: goalTimes
+        winner: d.Winner,
+        goal_times: goalTimes
       };
     }, function(data) {
       // console.log(data);
