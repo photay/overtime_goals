@@ -10,24 +10,32 @@
   <script>
 
     var wc_file = "data/World_Cup_Stats_2018.csv";
-    var sim_file = "data/simple.csv";
 
-    d3.csv(sim_file, function(d) {
+    d3.csv(wc_file, function(d) {
+      //Get all the goal times
+      goalTimes = []
+      for(item in d){
+        if(item.startsWith("Goal")){
+          goalTimes.append(d[item]);
+        }
+      }
+      //Return all the variables
       return {
-        year: d.Year,
-        make: d.Make,
-        model: d.Model,
-        length: +d.Length // convert "Length" column to number
+        round: d.Round,
+        game: d.Game,
+        score: d.Score,
+        winner: d.Winner
+        // goal_times: goalTimes
       };
     }, function(data) {
-      console.log(data);
+      // console.log(data);
       d3.select("div")
         .selectAll("p")
         .data(data)
         .enter()
         .append("p")
         .text(function(d) {
-            return d.make;
+            return d.round;
         });
     });
   </script>
