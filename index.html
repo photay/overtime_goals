@@ -4,7 +4,23 @@
   <link rel="stylesheet" href="styles.css">
   <script type="text/javascript" src="https://d3js.org/d3.v3.js" ></script>
 </head>
+
 <body>
+  <div
+  style="display: inline-block;
+            width: 20px;
+            height: 75px;
+            background-color: teal;">
+  </div>
+  <script>
+  var dataset =[ 13, 4, 5];
+  d3.select("body").selectAll("div")
+      .data(dataset)
+      .enter()
+      .append("div")
+      .attr("class", "bar");
+  </script>
+  <!-- /*
   <div class="transbox">
   </div>
   <script>
@@ -50,6 +66,6 @@
         .append("p")
         .text("\n");
     });
-  </script>
+  </script>  -->
 </body>
 </html>
