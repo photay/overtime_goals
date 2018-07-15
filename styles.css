@@ -1,6 +1,6 @@
-body {
+/* body {
   background-image: url("images/grass.jpg");
-}
+} */
 
 p {
   text-align: center;
@@ -12,17 +12,33 @@ p {
 div.transbox {
   margin: auto;
   width: 50%;
-  background-color: #ffffff;
+  background-color: black;
   border: 1px solid black;
   opacity: 0.9;
   /* filter: alpha(opacity=100); /* For IE8 and earlier */ */
 }
 
-div.bar {
-    display: inline-block;
-    width: 20px;
-    height: 75px;   /* We'll override this later */
-    background-color: teal;
+svg {
+  height:300px;
+  width:500px;
+}
+
+.path {
+  stroke: red;
+}
+
+.circle {
+  radius: 20px;
+  color: red;
+  x_axis: 30px;
+  y_axis: 30px;
+
+
+}
+
+line {
+  stroke: red;
+  stroke-width: 2;
 }
 
 div.transbox p {

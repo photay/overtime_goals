@@ -6,22 +6,34 @@
 </head>
 
 <body>
-  <div
-  style="display: inline-block;
-            width: 20px;
-            height: 75px;
-            background-color: teal;">
-  </div>
   <script>
-  var dataset =[ 13, 4, 5];
-  d3.select("body").selectAll("div")
+
+  var dataset = [ 15, 1, 5, 20, 30];
+
+  var svgCon = d3.select("body")
+                .append("svg");
+
+  d3.select("body")
+      .append("svg")
+      .selectAll("line")
       .data(dataset)
       .enter()
-      .append("div")
-      .attr("class", "bar");
+      .append("line")
+      // .attr("class", "bar")
+      .attr("x1", 0)
+      .attr("x2", function(d) {
+        var barHeight = d * 5;  //Scale up by factor of 5
+        return barHeight;
+      })
+      .attr("y1", function(d){
+        console.log(d);
+        return 10;
+      })
+      .attr("y2", 0)
+      ;
   </script>
-  <!-- /*
-  <div class="transbox">
+
+  <!-- <div class="transbox">
   </div>
   <script>
 
@@ -48,6 +60,7 @@
     }, function(data) {
       // console.log(data);
       d3.select("div")
+        .attr("class", "transbox")
         .selectAll("p")
         .data(data)
         .enter()
@@ -66,6 +79,6 @@
         .append("p")
         .text("\n");
     });
-  </script>  -->
+  </script> -->
 </body>
 </html>
