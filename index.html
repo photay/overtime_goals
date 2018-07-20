@@ -46,39 +46,5 @@
 
   </script>
 
-
-  <!-- <script>
-
-    var wc_file = "data/World_Cup_Stats_2018.csv";
-
-    d3.csv(wc_file, function(d) {
-      //Get all the goal times
-      var goalTimes = [];
-      for(item in d){
-        if(item.startsWith("Goal") && d[item] != "" ){
-           goalTimes.push(d[item]);
-         }
-      }
-      //Return all the variables
-      return {
-        round: d.Round,
-        game: d.Game,
-        score: d.Score,
-        winner: d.Winner,
-        goal_times: goalTimes
-      };
-  }, function(data) {
-    var chart = d3.timeline()
-      .tickFormat( //
-        {format: d3.time.format("%I %p"),
-        tickTime: d3.time.hours,
-        tickInterval: 1,
-        tickSize: 30})
-      .display("circle"); // toggle between rectangles and circles
-    var svg = d3.select("#timeline2").append("svg").attr("width", 200)
-      .datum(data).call(chart);
-
-  });
-  </script> -->
 </body>
 </html>
