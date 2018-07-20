@@ -27,13 +27,8 @@ svg {
   stroke: red;
 }
 
-.circle {
-  radius: 20px;
+circle {
   color: red;
-  x_axis: 30px;
-  y_axis: 30px;
-
-
 }
 
 line {

@@ -3,82 +3,51 @@
 <head>
   <link rel="stylesheet" href="styles.css">
   <script type="text/javascript" src="https://d3js.org/d3.v3.js" ></script>
+  <script src="lib/d3-timeline.js"></script>
 </head>
 
 <body>
   <div class="transbox">
   </div>
-  <!-- <script>
 
-    var wc_file = "data/World_Cup_Stats_2018.csv";
+  <script>
 
-    d3.csv(wc_file, function(d) {
+  var dataset = [ 60, 90, 120, 150];
 
-      //Get all the goal times
-      var goalTimes = [];
-      for(item in d){
-        if(item.startsWith("Goal") && d[item] != "" ){
-           goalTimes.push(d[item]);
-         }
-      }
-
-      //Return all the variables
-      return {
-        round: d.Round,
-        game: d.Game,
-        score: d.Score,
-        winner: d.Winner,
-        goal_times: goalTimes
-      };
-    }, function(data) {
-      // console.log(data);
-      d3.select("div")
-        .attr("class", "transbox")
-        .selectAll("p")
-        .data(data)
-        .enter()
-        .append("p")
-        .text(function(d) {
-            return d.game;
-        })
-        .append("p")
-        .text(function(d){
-          return d.score;
-        })
-        .append("p")
-        .text(function(d){
-          return d.goal_times;
-        })
-        .append("p")
-        .text("\n");
-    });
-  </script> -->
-
-  <!-- <script>
-
-  var dataset = [ 15, 1, 5, 20, 30];
+  d3.select("body").append("svg")
+   .selectAll("circle")
+   .attr("class", "main_svg")
+   .data(dataset)
+   .enter()
+   .append("circle")
+   .attr("cx", 30)
+   .attr("cy", function(d, i){
+      return 30 * i;
+   })
+   .attr("r", 5)
+   ;
 
   d3.select("body")
-      .append("svg")
-      .selectAll("line")
-      .data(dataset)
-      .enter()
-      .append("line")
-      // .attr("class", "bar")
-      .attr("x1", 0)
-      .attr("x2", function(d) {
-        var barHeight = d * 5;  //Scale up by factor of 5
-        return barHeight;
-      })
-      .attr("y1", function(d, i){
-        return 10 * i;
-      })
-      .attr("y2", function(d, i){
-        return 10 * i;
-      })
-      ;
-  </script> -->
-  <script>
+    .select("svg")
+    .selectAll("line")
+    .attr("class", "main_svg")
+    .data(dataset)
+    .enter()
+    .append("line")
+    .attr("x1", 0)
+    .attr("x2", 100)
+    .attr("y1", function(d, i){
+      return 30 * i;
+    })
+    .attr("y2", function(d, i){
+      return 30 * i;
+    })
+    ;
+
+  </script>
+
+
+  <!-- <script>
 
     var wc_file = "data/World_Cup_Stats_2018.csv";
 
@@ -99,9 +68,17 @@
         goal_times: goalTimes
       };
   }, function(data) {
-
+    var chart = d3.timeline()
+      .tickFormat( //
+        {format: d3.time.format("%I %p"),
+        tickTime: d3.time.hours,
+        tickInterval: 1,
+        tickSize: 30})
+      .display("circle"); // toggle between rectangles and circles
+    var svg = d3.select("#timeline2").append("svg").attr("width", 200)
+      .datum(data).call(chart);
 
   });
-  </script>
+  </script> -->
 </body>
 </html>
