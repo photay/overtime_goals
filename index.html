@@ -12,37 +12,78 @@
 
   <script>
 
-  var dataset = [ 60, 90, 120, 150];
+    var wc_file = "data/World_Cup_Stats_2018.csv";
 
-  d3.select("body").append("svg")
-   .selectAll("circle")
-   .attr("class", "main_svg")
-   .data(dataset)
-   .enter()
-   .append("circle")
-   .attr("cx", 30)
-   .attr("cy", function(d, i){
-      return 30 * i;
-   })
-   .attr("r", 5)
-   ;
+    d3.csv(wc_file, function(d) {
+      //Get all the goal times
+      // var line_length = 100;
+      var goalTimes = [];
 
-  d3.select("body")
-    .select("svg")
-    .selectAll("line")
-    .attr("class", "main_svg")
-    .data(dataset)
-    .enter()
-    .append("line")
-    .attr("x1", 0)
-    .attr("x2", 100)
-    .attr("y1", function(d, i){
-      return 30 * i;
+      for(item in d){
+        if(item.startsWith("Goal") && d[item] != "" ){
+          goalTimes.push(d[item]);
+        }
+      }
+
+      //Return all the variables
+      return {
+        round: d.Round,
+        game: d.Game,
+        score: d.Score,
+        winner: d.Winner,
+        goal_times: goalTimes
+      };
+
+    }, function(data) {
+      let global_goal_times = data.map(function(d) { return d.goal_times })
+
+
+      let sum_goal_times = []
+
+      for (let goal_times in global_goal_times) {
+        let arr = global_goal_times[goal_times]
+
+        sum_goal_times = sum_goal_times.concat(arr)
+
+      }
+
+      d3.select("body").append("svg")
+        .selectAll("circle")
+        .attr("class", "main_svg")
+        .data(sum_goal_times)
+        .enter()
+        .append("circle")
+        .attr("cx", function(d){
+
+          var goal_time = d.match(/(\d+)/g)[0]
+          goal_time = parseInt(goal_time)
+
+          var to_return = (goal_time/90);
+
+          return to_return;
+        })
+        .attr("cy", function(d, i){
+          return 30 * i;
+        })
+        .attr("r", 5)
+
+      d3.select("body")
+        .select("svg")
+        .selectAll("line")
+        .attr("class", "main_svg")
+        .data(data)
+        .enter()
+        .append("line")
+        .attr("x1", 0)
+        .attr("x2", 100)
+        .attr("y1", function(d, i){
+          return 30 * i;
+        })
+        .attr("y2", function(d, i){
+          return 30 * i
+        })
     })
-    .attr("y2", function(d, i){
-      return 30 * i;
-    })
-    ;
+
 
   </script>
 
