@@ -38,19 +38,17 @@
       /* Lines for each game */
       var line_length = 1000;
       d3.select("body").append("svg")
-       .selectAll("circle")
+       .selectAll("g")
        .attr("class", "main_svg")
        .data(data)
        .enter()
+       .append("g")
+       .selectAll("circle")
+       .data(d => d.goal_times)
+       .enter()
        .append("circle")
-       .attr("cx", function(d){
+       .attr("cx", function(el){
 
-         console.log(d.goal_times);
-         if(d.goal_times.length ==0){
-           return;
-         }
-
-         d.goal_times.forEach(function(el){
            if(el.includes("(")){
              el = el.split("(")[0];
            }
@@ -62,7 +60,6 @@
            var to_return = (int_el / 90) * line_length;
            console.log(int_el);
            return to_return;
-         })
 
        })
        .attr("cy", function(d, i){
