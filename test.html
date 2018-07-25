@@ -14,10 +14,10 @@
 
     var wc_file = "data/World_Cup_Stats_2018.csv";
 
+    //Read Data from csv
     d3.csv(wc_file, function(d) {
 
       //Get all the goal times
-      // var line_length = 100;
       var goalTimes = [];
       for(item in d){
         if(item.startsWith("Goal") && d[item] != "" ){
@@ -34,28 +34,8 @@
         goal_times: goalTimes
       };
     }, function(data) {
-      // console.log(data);
-      // d3.select("div")
-      //   .attr("class", "transbox")
-      //   .selectAll("p")
-      //   .data(data)
-      //   .enter()
-      //   .append("p")
-      //   .text(function(d) {
-      //       return d.game;
-      //   })
-      //   .append("p")
-      //   .text(function(d){
-      //     return d.score;
-      //   })
-      //   .append("p")
-      //   .text(function(d){
-      //     return d.goal_times;
-      //   })
-      //   .append("p")
-      //   .text("\n")
-      //   ;
 
+      /* Lines for each game */
       var line_length = 1000;
       d3.select("body").append("svg")
        .selectAll("circle")
@@ -91,6 +71,7 @@
        .attr("r", 5)
        ;
 
+      /* Circle for each goal */
       d3.select("body")
         .select("svg")
         .selectAll("line")
