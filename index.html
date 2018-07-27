@@ -7,9 +7,17 @@
 </head>
 
 <body>
+  <h1>This is a title!</h1>
+  <!-- <p id="main-paragraph">Sports is always exciting.
+    This years world cup
+  </p> -->
+  <object
+    type="text/plain"
+    data="paragraph.txt"
+    style="overflow: hidden;">
+  </object>
   <div class="transbox">
   </div>
-
   <script>
 
     var wc_file = "data/World_Cup_Stats_2018.csv";
@@ -60,7 +68,7 @@
            var int_el = parseInt(el);
 
            var to_return = (int_el / 90) * line_length;
-           console.log(int_el);
+           // console.log(int_el);
            return to_return;
 
        })

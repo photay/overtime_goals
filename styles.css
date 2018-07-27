@@ -2,11 +2,16 @@
   background-image: url("images/grass.jpg");
 } */
 
-p {
+p, h1 {
   text-align: center;
-  margin: 5%;
   font-weight: bold;
   color: #000000;
+}
+
+object {
+  width: 70%;
+  display: block;
+  margin: 0 auto;
 }
 
 div.transbox {
@@ -20,7 +25,9 @@ div.transbox {
 
 svg {
   height:300px;
-  width:500px;
+  width: 70%;
+  display: block;
+  margin: 0 auto;
 }
 
 .path {
