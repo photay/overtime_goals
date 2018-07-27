@@ -48,16 +48,16 @@
       var default_color = "red";
       var default_radius = 5;
       d3.select("body").append("svg")
-       .selectAll("g")
-       .attr("class", "main_svg")
-       .data(data)
-       .enter()
-       .append("g")
-       .selectAll("circle")
-       .data(d => d.goal_times)
-       .enter()
-       .append("circle")
-       .attr("cx", function(el){
+        .selectAll("g")
+        .attr("class", "main_svg")
+        .data(data)
+        .enter()
+        .append("g")
+        .selectAll("circle")
+        .data(d => d.goal_times, a => data)
+        .enter()
+        .append("circle")
+        .attr("cx", function(el){
 
            if(el.includes("(")){
              el = el.split("(")[0];
@@ -67,13 +67,15 @@
            }
            var int_el = parseInt(el);
 
-           var to_return = (int_el / 90) * line_length;
-           // console.log(int_el);
-           return to_return;
+           var to_return =(int_el / 90) * line_length;
+
+           if(isNaN(to_return)) return;
+           else return to_return;
 
        })
-       .attr("cy", function(d, i){
-          return 30 * i;
+       .attr("cy", function(d, a, i){
+         console.log(i);
+         return 30 * i;
        })
        .attr("r", default_radius)
        .style("fill", default_color)
@@ -93,7 +95,7 @@
         .data(data)
         .enter()
         .append("line")
-        .attr("x1", 0)
+        .attr("x1", 10)
         .attr("x2", line_length)
         .attr("y1", function(d, i){
           return 30 * i;
@@ -102,6 +104,24 @@
           return 30 * i;
         })
         ;
+
+      /* Label for the lines */
+      d3.select("body")
+        .select("svg")
+        // .selectAll("text")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("x", 0)
+        .attr("y", function(d, i){
+          return 30 * i;
+        })
+        .attr("text-anchor", "middle")
+        .text(function(d){
+          return data.game;
+        })
+        ;
+
     });
   </script>
 

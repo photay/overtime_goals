@@ -24,10 +24,11 @@ div.transbox {
 }
 
 svg {
-  height:300px;
+  height: 3000px;
   width: 70%;
   display: block;
   margin: 0 auto;
+  overflow: scroll;
 }
 
 .path {
