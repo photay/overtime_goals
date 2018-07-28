@@ -4,13 +4,11 @@
   <link rel="stylesheet" href="styles.css">
   <script type="text/javascript" src="https://d3js.org/d3.v3.js" ></script>
   <script src="lib/d3-timeline.js"></script>
+  <script src="jquery-3.3.1.min.js"></script>
 </head>
 
 <body>
   <h1>This is a title!</h1>
-  <!-- <p id="main-paragraph">Sports is always exciting.
-    This years world cup
-  </p> -->
   <object
     type="text/plain"
     data="paragraph.txt"
@@ -44,7 +42,7 @@
     }, function(data) {
 
       /* Circles for each goal*/
-      var line_length = 1000;
+      var line_length = (window.innerWidth) * 0.7;
       var default_color = "red";
       var default_radius = 5;
       d3.select("body").append("svg")
@@ -54,27 +52,35 @@
         .enter()
         .append("g")
         .selectAll("circle")
-        .data(d => d.goal_times, a => data)
+        .data(d => d.goal_times)
         .enter()
         .append("circle")
-        .attr("cx", function(el){
+        .attr("cx", function(d){
 
-           if(el.includes("(")){
-             el = el.split("(")[0];
-           }
-           if(el.includes(":")){
-             el = el.split(":")[0];
-           }
-           var int_el = parseInt(el);
+          console.log("start");
+          console.log(line_length);
+          console.log(window.outerWidth);
+          console.log(window.innerWidth);
+          console.log("end");
+          var el = d;
+          if(el.includes("(")){
+            el = el.split("(")[0];
+          }
+          if(el.includes(":")){
+            el = el.split(":")[0];
+          }
+          var int_el = parseInt(el);
 
-           var to_return =(int_el / 90) * line_length;
+          var to_return =(int_el / 90) * line_length;
 
-           if(isNaN(to_return)) return;
-           else return to_return;
+          if(isNaN(to_return)){
+            return;
+          }else{
+            return to_return;
+          }
 
        })
        .attr("cy", function(d, a, i){
-         console.log(i);
          return 30 * i;
        })
        .attr("r", default_radius)
