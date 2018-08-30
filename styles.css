@@ -34,14 +34,10 @@ svg {
   stroke: red;
 }
 
-/* circle {
-  color: red;
-} */
-
 line {
   display: block;
   margin: 0 auto;
-  stroke: red;
+  /* stroke: red; */
   stroke-width: 2;
 }
 
