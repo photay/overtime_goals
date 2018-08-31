@@ -7,7 +7,7 @@ To Add:
  - changes when scrolling
  - toggle at top for different years
  - add key line for explaining
-
+ - beehive graph too
 
 Problems:
  - Top line in group
@@ -39,6 +39,14 @@ Done:
     data="paragraph.txt"
     style="overflow: hidden;">
   </object>
+  <!-- <svg> //Linear Gradient html example
+    <defs>
+      <linearGradient id="gradient">
+          <stop offset="0.0%" stop-color="#90B9AD"></stop>
+          <stop offset="100%" stop-color="red"></stop>
+      </linearGradient>
+    </defs>
+  </svg> -->
   <div class="transbox">
   </div>
   <script>
@@ -55,14 +63,32 @@ Done:
            goalTimes.push(d[item]);
          }
       }
-      //Return all the variables
+
+      var stoppageTime = d.Total_Stoppage_Time.split(",");
+      for(var i=0; i <stoppageTime.length; i++){
+        stoppageTime[i]=parseInt(stoppageTime[i]);
+      }
+
+      var totalTime;
+      if( stoppageTime.length > 1){
+        //90+first_overtime+15+second_overtime+15+third_overtime;
+        totalTime = 120;
+        for(var i=0; i <stoppageTime.length; i++){
+          totalTime = totalTime + stoppageTime[i];
+        }
+      }
+      else{
+        totalTime = 90 + stoppageTime[0];
+      }
+
       return {
         //Round,,Game,Winner,Score,Total Stoppage Time,Goal_1,Goal_2,Goal_3,Goal_4,Goal_5,Goal_6,Goal_7,Goal_8,Goal_9,Goal_10
-
         round: d.Round,
         game: d.Game,
         score: d.Score,
         winner: d.Winner,
+        stoppage_time: stoppageTime,
+        total_time: totalTime,
         goal_times: goalTimes
       };
     }, function(data) {
@@ -74,13 +100,13 @@ Done:
       var default_radius = 5;
 
       /* Helper functions */
-      function getTime(raw_time){
+      function getTime(raw_time, total_time=130){
         if( raw_time == null){ return;}
 
         if(raw_time.includes("(")){
           var time_of_goal = parseInt(raw_time.split("(")[0]);
         }
-        var to_return =(time_of_goal / 90) * (line_length-start_length);
+        var to_return =(time_of_goal / total_time) * (line_length-start_length);
         return to_return+start_length;
       }
 
@@ -93,6 +119,7 @@ Done:
         return scorer;
       }
 
+      //Add circles for each goal scored.
       d3.select("body").append("svg")
         .selectAll("g")
         .attr("class", "main_svg")
@@ -137,6 +164,19 @@ Done:
          })
          ;
 
+      //Trying to get multiple colors for line by using linearGradient
+      // d3.select("body")
+      //   .select("svg")
+      //   .append("defs")
+      //  .append("linearGradient")
+      //  .attr("id", "gradient")
+      //  .append("stop")
+      //  .attr("offset", "0%")
+      //  .attr("stop-color", "black")
+      //  .append("stop")
+      //  .attr("offset", "100%")
+      //  .attr("stop-color", "red")
+      //  ;
 
       /* Base Line for each game */
       d3.select("body")
@@ -154,30 +194,30 @@ Done:
         .attr("y2", function(d, i){
           return 30 * i;
         })
-        .style("stroke", "black")
+        .style("stroke", "black") //"url(#gradient)")
         ;
 
       /* OverTime Line*/
-      d3.select("body")
-        .select("svg")
-        .selectAll("line")
-        .attr("class", "main_svg")
-        .data(data)
-        .enter()
-        .append("line")
-        .attr("x1", line_length)
-        .attr("x2", function(d){
-          console.log(d);
-          return line_length+20;
-        })
-        .attr("y1", function(d, i){
-          return 30 * i;
-        })
-        .attr("y2", function(d, i){
-          return 30 * i;
-        })
-        .style("stroke", "green")
-        ;
+      // d3.select("body")
+      //   .select("svg")
+      //   .selectAll("line")
+      //   .attr("class", "main_svg")
+      //   .data(data)
+      //   .enter()
+      //   .append("line")
+      //   .attr("x1", line_length)
+      //   .attr("x2", function(d){
+      //     // console.log(d);
+      //     return line_length+20;
+      //   })
+      //   .attr("y1", function(d, i){
+      //     return 30 * i;
+      //   })
+      //   .attr("y2", function(d, i){
+      //     return 30 * i;
+      //   })
+      //   .style("stroke", "green")
+      //   ;
 
       /* Game Label for the lines */
       d3.select("body")
@@ -211,6 +251,5 @@ Done:
 
     });
   </script>
-
 </body>
 </html>
